@@ -3,6 +3,7 @@ package kodlama.io.rentACar.business.concretes;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kodlama.io.rentACar.business.abstracts.ModelService;
@@ -22,11 +23,9 @@ public class ModelManager implements ModelService {
 
 	@Override
 	public List<GetAllModelsResponse> getAll() {
-		List<Model> models = modelRepository.findAll();
+		List<Model> models = modelRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
 		List<GetAllModelsResponse> modelResponse = models.stream()
-				.map(model -> this.modelMapperService
-						.forResponse()
-						.map(model, GetAllModelsResponse.class))
+				.map(model -> this.modelMapperService.forResponse().map(model, GetAllModelsResponse.class))
 				.collect(Collectors.toList());
 		// İş Kuralları
 		return modelResponse;
@@ -34,9 +33,7 @@ public class ModelManager implements ModelService {
 
 	@Override
 	public void add(CreateModelRequest createModelRequest) {
-		Model model = this.modelMapperService
-				.forRequest()
-				.map(createModelRequest, Model.class);
+		Model model = this.modelMapperService.forRequest().map(createModelRequest, Model.class);
 		this.modelRepository.save(model);
 	}
 

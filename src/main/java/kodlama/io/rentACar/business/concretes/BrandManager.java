@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kodlama.io.rentACar.business.abstracts.BrandService;
@@ -33,11 +34,9 @@ public class BrandManager implements BrandService {
 
 	@Override
 	public List<GetAllBrandsResponse> getAll() {
-		List<Brand> brands = brandRepository.findAll();
+		List<Brand> brands = brandRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
 		List<GetAllBrandsResponse> brandsResponse = brands.stream()
-				.map(brand -> this.modelMapperService
-						.forResponse()
-						.map(brand, GetAllBrandsResponse.class))
+				.map(brand -> this.modelMapperService.forResponse().map(brand, GetAllBrandsResponse.class))
 				.collect(Collectors.toList());
 		// İş Kuralları
 		return brandsResponse;
@@ -60,8 +59,7 @@ public class BrandManager implements BrandService {
 	@Override
 	public void add(CreateBrandRequest createBrandRequest) {
 		this.brandBusinessRules.checkIfBrandNameExists(createBrandRequest.getName());
-		Brand brand = this.modelMapperService.forRequest()
-				.map(createBrandRequest, Brand.class);
+		Brand brand = this.modelMapperService.forRequest().map(createBrandRequest, Brand.class);
 		this.brandRepository.save(brand);
 	}
 
@@ -75,17 +73,13 @@ public class BrandManager implements BrandService {
 	@Override
 	public GetByIdBrandReponse getById(int id) {
 		Brand brand = this.brandRepository.findById(id).orElseThrow();
-		GetByIdBrandReponse response = this.modelMapperService
-				.forResponse()
-				.map(brand, GetByIdBrandReponse.class);
+		GetByIdBrandReponse response = this.modelMapperService.forResponse().map(brand, GetByIdBrandReponse.class);
 		return response;
 	}
 
 	@Override
 	public void update(UpdateBrandRequest updateBrandRequest) {
-		Brand brand = this.modelMapperService
-				.forRequest()
-				.map(updateBrandRequest, Brand.class);
+		Brand brand = this.modelMapperService.forRequest().map(updateBrandRequest, Brand.class);
 		this.brandRepository.save(brand);
 		// Hem add isleminde hem de update isleminde brandRepository de bulunan save i
 		// kullandik. add isleminde elimizde herhangi bir id olmadigi icin INSERT islemi
