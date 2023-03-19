@@ -20,7 +20,7 @@ import kodlama.io.rentACar.business.abstracts.BrandService;
 import kodlama.io.rentACar.business.requests.CreateBrandRequest;
 import kodlama.io.rentACar.business.requests.UpdateBrandRequest;
 import kodlama.io.rentACar.business.responses.GetAllBrandsResponse;
-import kodlama.io.rentACar.business.responses.GetByIdBrandReponse;
+import kodlama.io.rentACar.business.responses.GetByIdBrandResponse;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -41,7 +41,7 @@ public class BrandsController {
 	}
 
 	@GetMapping("/{id}")
-	public GetByIdBrandReponse getById(@PathVariable int id) {
+	public GetByIdBrandResponse getById(@PathVariable int id) {
 		// PathVariable dedigimiz zaman bunu git de /api/brands de bulunan pathden alir
 		return brandService.getById(id);
 	}

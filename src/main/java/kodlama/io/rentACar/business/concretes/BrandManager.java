@@ -11,7 +11,7 @@ import kodlama.io.rentACar.business.abstracts.BrandService;
 import kodlama.io.rentACar.business.requests.CreateBrandRequest;
 import kodlama.io.rentACar.business.requests.UpdateBrandRequest;
 import kodlama.io.rentACar.business.responses.GetAllBrandsResponse;
-import kodlama.io.rentACar.business.responses.GetByIdBrandReponse;
+import kodlama.io.rentACar.business.responses.GetByIdBrandResponse;
 import kodlama.io.rentACar.business.rules.BrandBusinessRules;
 import kodlama.io.rentACar.core.utilities.mappers.ModelMapperService;
 import kodlama.io.rentACar.dataAccess.abstracts.BrandRepository;
@@ -71,9 +71,9 @@ public class BrandManager implements BrandService {
 //	}
 
 	@Override
-	public GetByIdBrandReponse getById(int id) {
+	public GetByIdBrandResponse getById(int id) {
 		Brand brand = this.brandRepository.findById(id).orElseThrow();
-		GetByIdBrandReponse response = this.modelMapperService.forResponse().map(brand, GetByIdBrandReponse.class);
+		GetByIdBrandResponse response = this.modelMapperService.forResponse().map(brand, GetByIdBrandResponse.class);
 		return response;
 	}
 

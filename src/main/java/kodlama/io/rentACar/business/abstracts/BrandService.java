@@ -5,13 +5,13 @@ import java.util.List;
 import kodlama.io.rentACar.business.requests.CreateBrandRequest;
 import kodlama.io.rentACar.business.requests.UpdateBrandRequest;
 import kodlama.io.rentACar.business.responses.GetAllBrandsResponse;
-import kodlama.io.rentACar.business.responses.GetByIdBrandReponse;
+import kodlama.io.rentACar.business.responses.GetByIdBrandResponse;
 
 public interface BrandService {
 
 	List<GetAllBrandsResponse> getAll();
 
-	GetByIdBrandReponse getById(int id);
+	GetByIdBrandResponse getById(int id);
 
 	void add(CreateBrandRequest createBrandRequest);
 
