@@ -25,7 +25,9 @@ public class ModelManager implements ModelService {
 	public List<GetAllModelsResponse> getAll() {
 		List<Model> models = modelRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
 		List<GetAllModelsResponse> modelResponse = models.stream()
-				.map(model -> this.modelMapperService.forResponse().map(model, GetAllModelsResponse.class))
+				.map(model -> this.modelMapperService
+						.forResponse()
+						.map(model, GetAllModelsResponse.class))
 				.collect(Collectors.toList());
 		// İş Kuralları
 		return modelResponse;
@@ -33,7 +35,9 @@ public class ModelManager implements ModelService {
 
 	@Override
 	public void add(CreateModelRequest createModelRequest) {
-		Model model = this.modelMapperService.forRequest().map(createModelRequest, Model.class);
+		Model model = this.modelMapperService
+				.forRequest()
+				.map(createModelRequest, Model.class);
 		this.modelRepository.save(model);
 	}
 
