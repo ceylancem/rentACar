@@ -49,17 +49,20 @@ public class BrandsController {
 	@PostMapping()
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public void add(@RequestBody() @Valid() CreateBrandRequest createBrandRequest) {
-		this.brandService.add(createBrandRequest);
+		this.brandService
+		.add(createBrandRequest);
 	}
 
 	@PutMapping
 	public void update(@RequestBody UpdateBrandRequest updateBrandRequest) {
-		this.brandService.update(updateBrandRequest);
+		this.brandService
+		.update(updateBrandRequest);
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable int id) {
-		this.brandService.delete(id);
+		this.brandService
+		.delete(id);
 	}
 
 }
